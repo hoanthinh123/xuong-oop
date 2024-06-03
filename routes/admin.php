@@ -8,3 +8,22 @@
 //      GET     -> USER/ID/EDIT -> EDIT ($id)     -> HIỂN THỊ FORM CẬP NHẬT
 //      PUT     -> USER/ID      -> UPDATE ($id)   -> LƯU DỮ LIỆU TỪ FORM CẬP NHẬT VÀO DB
 //      DELETE  -> USER/ID      -> DELETE ($id)   -> XÓA BẢ
+use Asus\XuongOop\Controllers\Admin\DashboardController;
+use Asus\XuongOop\Controllers\Admin\UserController;
+
+$router->mount('/admin', function () use ($router) {
+
+    $router->get('/',               DashboardController::class . '@dashboard');
+
+    // CRUD USER
+    $router->mount('/users', function () use ($router) {
+        $router->get('/',               UserController::class . '@index');
+        $router->get('/create',         UserController::class . '@create');
+        $router->post('/store',         UserController::class . '@store');
+        $router->get('/{id}/show',      UserController::class . '@show');
+        $router->get('/{id}/edit',      UserController::class . '@edit');
+        $router->post('/{id}/update',   UserController::class . '@update');
+        $router->get('/{id}/delete',    UserController::class . '@delete');
+    });
+    
+});

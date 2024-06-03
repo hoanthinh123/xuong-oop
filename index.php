@@ -1,14 +1,9 @@
 <?php
 
-use Asus\Xuong\Commons\Helper;
-
 session_start();
 
-require_once './vendor/autoload.php';
+require 'vendor/autoload.php';
+
+Dotenv\Dotenv::createImmutable(__DIR__)->load();
+
 require_once __DIR__ . '/routes/index.php';
-
-$array = [
-    new DOMComment(),
-
-];
-Helper::debug($array);
