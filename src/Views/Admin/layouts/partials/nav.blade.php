@@ -14,7 +14,7 @@
                 <span>Dashboard</span>
             </a>
             <ul>
-                <li><a class="active" href="index-2.html">Sales</a></li>
+                <li><a class="active" href="{{ asset('admin/users') }}">User</a></li>
                 <li><a href="index_2.html">Default</a></li>
                 <li><a href="index_3.html">Dark Menu</a></li>
             </ul>

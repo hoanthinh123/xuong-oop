@@ -11,12 +11,12 @@
 use Asus\XuongOop\Controllers\Admin\DashboardController;
 use Asus\XuongOop\Controllers\Admin\UserController;
 
-$router->before('GET|POST', '/admin/*.*', function() {
-    if (! isset($_SESSION['user'])) {
-        header('location: ' . url('login') );
-        exit();
-    }
-});
+// $router->before('GET|POST', '/admin/*.*', function() {
+//     if (! isset($_SESSION['user'])) {
+//         header('location: ' . url('login') );
+//         exit();
+//     }
+// });
 $router->mount('/admin', function () use ($router) {
 
     $router->get('/',               DashboardController::class . '@dashboard');
