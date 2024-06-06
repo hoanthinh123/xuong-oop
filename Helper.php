@@ -9,7 +9,16 @@ if (!function_exists('asset')) {
 }
 
 if (!function_exists('url')) {
-    function url($uri) {
+    function url($uri = null) {
         return $_ENV['BASE_URL'] . $uri;
+    }
+}
+
+if (!function_exists('auth_check')) {
+    function auth_check() {
+        if (isset($_SESSION['user'])) {
+            header('Location: ' . url('admin/') );
+            exit;
+        }
     }
 }

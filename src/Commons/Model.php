@@ -29,6 +29,11 @@ class Model
     }
 
     // CRUD
+    public function getConnection()
+    {
+        return $this->conn;
+    }
+
     public function all()
     {
         return $this->queryBuilder

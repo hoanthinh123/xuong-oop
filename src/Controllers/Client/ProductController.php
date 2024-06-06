@@ -5,7 +5,7 @@ namespace Asus\XuongOop\Controllers\Client;
 use Asus\XuongOop\Commons\Controller;
 use Asus\XuongOop\Models\Product;
 
-class HomeController extends Controller
+class ProductController extends Controller
 {
     private Product $product;
 
@@ -15,13 +15,14 @@ class HomeController extends Controller
     }
     
     public function index() {
-        $name = 'Hoanthinh';
+        echo __CLASS__ . '@' . __FUNCTION__;
+    }
 
-        $products = $this->product->all();
+    public function detail($id) {
+        $product = $this->product->findByID($id);
 
-        $this->renderViewClient('home', [
-            'name' => $name,
-            'products' => $products
+        $this->renderViewClient('product-detail', [
+            'product' => $product
         ]);
     }
 }
