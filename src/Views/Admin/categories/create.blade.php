@@ -40,13 +40,14 @@ unset($_SESSION['errors']);
                                 <label for="name" class="form-label">Name:</label>
                                 <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
                             </div>
-
                         </div>
                     </div>
-
-                    <button type="submit" class="btn btn-primary mt-5">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-info" href="{{ url('admin/categories') }}">Trở về</a>
                 </form>
+                
             </div>
+
         </div>
     </div>
 </div>

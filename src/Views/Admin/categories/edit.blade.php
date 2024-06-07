@@ -33,6 +33,8 @@ Sửa Danh Mục
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-info" href="{{ url('admin/categories') }}">Trở về</a>
+
                 </form>
 
 
