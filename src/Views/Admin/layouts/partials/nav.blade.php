@@ -16,7 +16,7 @@
             <ul>
                 <li><a class="active" href="{{ asset('admin/users') }}">User</a></li>
                 <li><a href="{{ asset('admin/categories') }}">Categories</a></li>
-                <li><a href="index_3.html">Dark Menu</a></li>
+                <li><a href="{{ asset('admin/products') }}">Product</a></li>
             </ul>
         </li>
 

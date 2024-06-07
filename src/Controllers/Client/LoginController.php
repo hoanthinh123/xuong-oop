@@ -3,7 +3,6 @@
 namespace Asus\XuongOop\Controllers\Client;
 
 use Asus\XuongOop\Commons\Controller;
-use Asus\XuongOop\Commons\Helper;
 use Asus\XuongOop\Models\User;
 
 class LoginController extends Controller
@@ -26,24 +25,17 @@ class LoginController extends Controller
 
         try {
             $user = $this->user->findByEmail($_POST['email']);
-            
+
             if (empty($user)) {
                 throw new \Exception('Không tồn tại email: ' . $_POST['email']);
             }
 
-            $flag = password_verify($_POST['password'], $user['password']);
+            $flag = password_verify($_POST['password'], $user['password']); 
             if ($flag) {
 
                 $_SESSION['user'] = $user;
 
-                unset($_SESSION['cart']);
-
-                if ($user['type'] == 'admin') {
-                    header('Location: ' . url('admin/') );
-                    exit;
-                }
-
-                header('Location: ' . url() );
+                header('Location: ' . url('admin/') );
                 exit;
             }
 
@@ -57,7 +49,6 @@ class LoginController extends Controller
     }
 
     public function logout() {
-        unset($_SESSION['cart-' . $_SESSION['user']['id'] ]);
         unset($_SESSION['user']);
 
         header('Location: ' . url() );
