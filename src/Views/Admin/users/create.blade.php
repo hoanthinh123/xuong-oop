@@ -52,6 +52,8 @@ Danh sách User
                         <input type="text" class="form-control" id="confirm_password" placeholder="Enter confirm_password" name="confirm_password">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-info" href="{{ url('admin/users') }}">Trở về</a>
+
                 </form>
             </div>
         </div>

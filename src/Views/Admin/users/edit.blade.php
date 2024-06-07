@@ -53,6 +53,8 @@ Danh sách User
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
+        <a class="btn btn-info" href="{{ url('admin/users') }}">Trở về</a>
+
     </form>
     </div>
         </div>
