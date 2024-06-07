@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Danh sách User
+Danh Mục
 @endsection
 
 @section('content')
@@ -11,13 +11,13 @@ Danh sách User
             <div class="white_card_header">
                 <div class="box_header m-0">
                     <div class="main-title">
-                        <h1 class="m-0">Danh sách User</h1>
+                        <h1 class="m-0">Danh Mục</h1>
                     </div>
                 </div>
             </div>
             <div class="white_card_body">
 
-                <a class="btn btn-primary" href="{{ url('admin/users/create') }}">Thêm mới</a>
+            <a href="{{ url("admin/categories/create") }}" class="btn btn-primary">Thêm mới</a>
 
                 @if (isset($_SESSION['status']) && $_SESSION['status'])
                 <div class="alert alert-success">
@@ -35,32 +35,19 @@ Danh sách User
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>IMAGE</th>
                                 <th>NAME</th>
-                                <th>EMAIL</th>
-                                <th>CREATED AT</th>
-                                <th>UPDATED AT</th>
                                 <th>ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            @foreach ($users as $user)
+                            @foreach ($categories as $category)
                             <tr>
-                                <td><?= $user['id'] ?></td>
+                                <td>{{ $category['id'] }}</td>
+                                <td>{{ $category['name'] }}</td>
                                 <td>
-                                    <img src="{{ asset($user['avatar']) }}" alt="" width="100px">
-                                </td>
-                                <td><?= $user['name'] ?></td>
-                                <td><?= $user['email'] ?></td>
-                                <td><?= $user['created_at'] ?></td>
-                                <td><?= $user['updated_at'] ?></td>
-                                <td>
-
-                                    <a class="btn btn-info" href="{{ url('admin/users/' . $user['id'] . '/show') }}">Xem</a>
-                                    <a class="btn btn-warning" href="{{ url('admin/users/' . $user['id'] . '/edit') }}">Sửa</a>
-                                    <a class="btn btn-danger" href="{{ url('admin/users/' . $user['id'] . '/delete') }}" onclick="return confirm('Chắc chắn xóa không?')">Xóa</a>
-
+                                    <a href="{{ url("admin/categories/{$category['id']}/edit") }}" class="btn btn-warning">Sửa</a>
+                                    <a href="{{ url("admin/categories/{$category['id']}/delete") }}" onclick="return confirm('Chắc chắn xóa không?');" class="btn btn-danger">Xóa</a>
                                 </td>
                             </tr>
                             @endforeach

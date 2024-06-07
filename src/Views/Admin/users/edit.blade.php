@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+@extends('layouts.master')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cập nhật người dùng: {{ $user['name'] }}</title>
+@section('title')
+Danh sách User
+@endsection
 
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-
-<body>
-    <h1>Cập nhật người dùng: {{ $user['name'] }}</h1>
+@section('content')
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="white_card card_height_100 mb_30">
+            <div class="white_card_header">
+                <div class="box_header m-0">
+                    <div class="main-title">
+                    <h1>Cập nhật người dùng: {{ $user['name'] }}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="white_card_body">
+   
 
 	@if (!empty($_SESSION['errors']))
 		<div class="alert alert-warning">
@@ -52,6 +54,9 @@
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-</body>
-
-</html>
+    </div>
+        </div>
+    </div>
+</div>
+</div>
+@endsection

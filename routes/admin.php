@@ -8,6 +8,8 @@
 //      GET     -> USER/ID/EDIT -> EDIT ($id)     -> HIỂN THỊ FORM CẬP NHẬT
 //      PUT     -> USER/ID      -> UPDATE ($id)   -> LƯU DỮ LIỆU TỪ FORM CẬP NHẬT VÀO DB
 //      DELETE  -> USER/ID      -> DELETE ($id)   -> XÓA BẢ
+
+use Asus\XuongOop\Controllers\Admin\CategoryController;
 use Asus\XuongOop\Controllers\Admin\DashboardController;
 use Asus\XuongOop\Controllers\Admin\UserController;
 
@@ -31,5 +33,12 @@ $router->mount('/admin', function () use ($router) {
         $router->post('/{id}/update',   UserController::class . '@update');
         $router->get('/{id}/delete',    UserController::class . '@delete');
     });
-    
+    $router->mount('/categories', function () use ($router) {
+        $router->get('/',               CategoryController::class . '@index');  // Danh sách
+        $router->get('/create',         CategoryController::class . '@create'); // Show form thêm mới
+        $router->post('/store',         CategoryController::class . '@store');  // Lưu mới vào DB
+        $router->get('/{id}/edit',      CategoryController::class . '@edit');   // Show form sửa
+        $router->post('/{id}/update',   CategoryController::class . '@update'); // Lưu sửa vào DB
+        $router->get('/{id}/delete',    CategoryController::class . '@delete'); // Xóa
+    });
 });
