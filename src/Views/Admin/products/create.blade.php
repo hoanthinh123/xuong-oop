@@ -82,7 +82,8 @@ unset($_SESSION['errors']);
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary mt-5">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-info" href="{{ url('admin/products') }}">Trở về</a>
                 </form>
             </div>
         </div>
