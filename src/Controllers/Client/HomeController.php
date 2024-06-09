@@ -3,6 +3,7 @@
 namespace Asus\XuongOop\Controllers\Client;
 
 use Asus\XuongOop\Commons\Controller;
+use Asus\XuongOop\Commons\Helper;
 use Asus\XuongOop\Models\Product;
 
 class HomeController extends Controller
@@ -15,13 +16,12 @@ class HomeController extends Controller
     }
     
     public function index() {
-        $name = 'Hoanthinh';
 
-        $products = $this->product->all();
+        $getTop4 = $this->product->getTop4();
+        // Helper::debug($getTop4);
 
-        $this->renderViewClient('home', [
-            'name' => $name,
-            'products' => $products
+        $this->renderViewClient('home',[
+            'getTop4' => $getTop4
         ]);
     }
 }
