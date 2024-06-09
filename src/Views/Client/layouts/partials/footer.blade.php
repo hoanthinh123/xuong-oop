@@ -1,4 +1,4 @@
-<section class="bg-[#FFF7ED] py-16 mt-16">
+<section class="bg-[#FFF7ED] py-16 mt-1">
           <div class="container max-w-screen-xl m-auto grid grid-cols-4">
                 <div class="flex gap-5 items-center">
                   <img src="{{ asset('assets/Client/images/Vector.png')}}" alt="">
