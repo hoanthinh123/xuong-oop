@@ -27,7 +27,13 @@ class ProductController extends Controller
             'products' => $products
         ]);
     }
+public function detail($id) {
+        $product = $this->product->findByID($id);
 
+        $this->renderViewClient('product-detail', [
+            'product' => $product
+        ]);
+    }
     public function create()
     {
         $categories = $this->category->all();

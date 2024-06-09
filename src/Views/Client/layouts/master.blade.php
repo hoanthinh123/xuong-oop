@@ -12,7 +12,6 @@
 <header>
 
 @include('layouts.partials.nav')
-@include('layouts.partials.banner')
 
 </header>
 <main>

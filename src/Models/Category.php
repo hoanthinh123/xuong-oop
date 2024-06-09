@@ -14,4 +14,5 @@ class Category extends Model
       ->orderBy('id', 'desc')
       ->fetchAllAssociative();
   }
+  
 }

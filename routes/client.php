@@ -16,14 +16,16 @@
 use Asus\XuongOop\Controllers\Client\AboutController;
 use Asus\XuongOop\Controllers\Client\CartController;
 use Asus\XuongOop\Controllers\Client\ContactController;
+use Asus\XuongOop\Controllers\Client\DashboardController;
 use Asus\XuongOop\Controllers\Client\HomeController;
 use Asus\XuongOop\Controllers\Client\LoginController;
 use Asus\XuongOop\Controllers\Client\OrderController;
 use Asus\XuongOop\Controllers\Client\ProductController;
-
+use Asus\XuongOop\Controllers\Client\ShopController;
 
 $router->get( '/',                  HomeController::class       . '@index');
 $router->get( '/about',             AboutController::class      . '@index');
+$router->get( '/shop',              ShopController::class        . '@index');
 
 $router->get( '/contact',           ContactController::class    . '@index');
 $router->post( '/contact/store',    ContactController::class    . '@store');

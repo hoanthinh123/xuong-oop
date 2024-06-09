@@ -1,8 +1,8 @@
   <section class="container max-w-screen-xl m-auto flex items-center justify-between py-4">
     <img src="{{asset('assets/Client/images/logo.jpg')}}" alt="">
     <ul class="flex gap-8 font-medium text-xl">
-      <li class="hover:text-amber-500"><a href="index.html">Home</a></li>
-      <li class="hover:text-amber-500"><a href="shop.html">Shop</a></li>
+      <li class="hover:text-amber-500"><a href="{{ url() }}">Home</a></li>
+      <li class="hover:text-amber-500"><a href=" {{ url('shop') }}">Shop</a></li>
       <li class="hover:text-amber-500"><a href="">About</a></li>
       <li class="hover:text-amber-500"><a href="">Contact</a></li>
     </ul>
