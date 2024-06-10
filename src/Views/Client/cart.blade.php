@@ -1,144 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.master')
+@section('title')
+Cart
+@endsection
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+@section('content')
+<section class="container max-w-screen-xl m-auto grid grid-cols-12 gap-8 my-16">
 
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    @if (!empty($_SESSION['cart']) || !empty($_SESSION['cart-' . $_SESSION['user']['id']]))
+    <div class="col-span-8">
+        <table class="w-full">
+            <thead>
+                <tr class="bg-[#F5F5F5] *:py-4 *:font-medium">
+                    <th class="text-left pl-4">Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @php
+                $cart = $_SESSION['cart'] ?? $_SESSION['cart-' . $_SESSION['user']['id']]
+                @endphp
+                @foreach ($cart as $item)
+                <tr class="*:py-4 *:text-center *:font-medium">
+                    <td class="!text-left">
+                        <img src="{{ asset($item['img_thumbnail']) }}" width="150px" alt="" class="inline mr-4">
+                        <span class="text-[#A3A3A3]">{{ $item['name'] }}
+                        </span>
+                    </td>
+                    <td class=" text-[#A3A3A3]">
+                        {{ number_format(($item['price_sale'] ?: $item['price_regular']), 0, ",", ".")}}đ
+                    </td>
+                    <td>
+                        @php
+                        $url = url('cart/quantityDec') . '?productID=' . $item['id'];
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+                        if (isset($_SESSION['cart-' . $_SESSION['user']['id']])) {
+                        $url .= '&cartID=' . $_SESSION['cart_id'];
+                        }
+                        @endphp
+                        <a class="border border-solid border-[#CA8A04] bg-[#CA8A04] text-white font-semibold rounded  text-base py-2" style="width: 100px;" href="{{ $url }}">Giảm</a>
 
-</head>
+                        {{ $item['quantity'] }}
 
-<body>
-    <div class="container">
-        <div class="row">
-            <h1 class="mt-5">Welcome {{ $name }} to my website!</h1>
+                        @php
+                        $url = url('cart/quantityInc') . '?productID=' . $item['id'];
 
-            <nav>
-                @if (!isset($_SESSION['user']))
-                    <a class="btn btn-primary" href="{{ url('login') }}">Login</a>
-                @endif
+                        if (isset($_SESSION['cart-' . $_SESSION['user']['id']])) {
+                        $url .= '&cartID=' . $_SESSION['cart_id'];
+                        }
+                        @endphp
+                        <a class="border border-solid border-[#CA8A04] bg-[#CA8A04] text-white font-semibold rounded  text-base py-2" href="{{ $url }}">Tăng</a>
+                    </td>
+                    <td>
+                        {{ number_format($item['quantity'] *($item['price_sale'] ?: $item['price_regular']), 0, ",", ".")}}đ
 
-                @if (isset($_SESSION['user']))
-                    <a class="btn btn-primary" href="{{ url('logout') }}">Logout</a>
-                @endif
-            </nav>
+                    </td>
+                    <td>
+                        @php
+                        $url = url('cart/remove') . '?productID=' . $item['id'];
 
-        </div>
+                        if (isset($_SESSION['cart-' . $_SESSION['user']['id']])) {
+                        $url .= '&cartID=' . $_SESSION['cart_id'];
+                        }
+                        @endphp
+                        <a onclick="return confirm('Xóa hả:')" href="{{ $url }}" class="material-icons text-[#EF4444]">delete</a>
+                    </td>
+                </tr>
+                @endforeach
 
-        <div class="row">
-            @if (!empty($_SESSION['cart']) || !empty($_SESSION['cart-' . $_SESSION['user']['id']]))
-                <div class="col-md-8 mb-2 mt-2">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Tên sản phẩm</th>
-                                <th>Ảnh</th>
-                                <th>Số lượng</th>
-                                <th>Giá tiền</th>
-                                <th>Thành tiền</th>
-                                <th>Xóa</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            @php
-                                $cart = $_SESSION['cart'] ?? $_SESSION['cart-' . $_SESSION['user']['id']];
-                            @endphp
-                            @foreach ($cart as $item)
-                                <tr>
-                                    <td>{{ $item['name'] }}</td>
-                                    <td>
-                                        <img src="{{ asset($item['img_thumbnail']) }}" width="100px" alt="">
-                                    </td>
-                                    <td>
-                                        @php
-                                            $url = url('cart/quantityDec') . '?productID=' . $item['id'];
-
-                                            if (isset($_SESSION['cart-' . $_SESSION['user']['id']])) {
-                                                $url .= '&cartID=' . $_SESSION['cart_id'];
-                                            }
-                                        @endphp
-                                        <a class="btn btn-danger" href="{{ $url }}">Giảm</a>
-
-                                        {{ $item['quantity'] }}
-
-                                        @php
-                                            $url = url('cart/quantityInc') . '?productID=' . $item['id'];
-
-                                            if (isset($_SESSION['cart-' . $_SESSION['user']['id']])) {
-                                                $url .= '&cartID=' . $_SESSION['cart_id'];
-                                            }
-                                        @endphp
-                                        <a class="btn btn-primary" href="{{ $url }}">Tăng</a>
-                                    </td>
-                                    <td>
-                                        {{ $item['price_sale'] ?: $item['price_regular'] }}
-                                    </td>
-                                    <td>
-                                        {{ $item['quantity'] * ($item['price_sale'] ?: $item['price_regular']) }}
-                                    </td>
-                                    <td>
-                                        @php
-                                            $url = url('cart/remove') . '?productID=' . $item['id'];
-
-                                            if (isset($_SESSION['cart-' . $_SESSION['user']['id']])) {
-                                                $url .= '&cartID=' . $_SESSION['cart_id'];
-                                            }
-                                        @endphp
-                                        <a onclick="return confirm('Có chắn không?')"
-                                            href="{{ $url }}">Xóa</a>
-                                    </td>
-                                </tr>
-                            @endforeach
-
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="col-md-4 mb-2 mt-2">
-                    <form action="{{ url('order/checkout') }}" method="POST">
-                        <div class="mb-3 mt-3">
-                            <label for="name" class="form-label">Name:</label>
-                            <input type="text" class="form-control" id="name" 
-                                value="{{ $_SESSION['user']['name'] ?? null }}"
-                                placeholder="Enter name"
-                                name="user_name">
-                        </div>
-                        <div class="mb-3 mt-3">
-                            <label for="email" class="form-label">Email:</label>
-                            <input type="email" class="form-control" id="email" 
-                                value="{{ $_SESSION['user']['email'] ?? null }}"
-                                placeholder="Enter email"
-                                name="user_email">
-                        </div>
-                        <div class="mb-3 mt-3">
-                            <label for="phone" class="form-label">Phone:</label>
-                            <input type="text" class="form-control" id="phone" 
-                                value="{{ $_SESSION['user']['phone'] ?? null }}"
-                                placeholder="Enter phone"
-                                name="user_phone">
-                        </div>
-                        <div class="mb-3 mt-3">
-                            <label for="address" class="form-label">Address:</label>
-                            <input type="text" class="form-control" id="address" 
-                                value="{{ $_SESSION['user']['address'] ?? null }}"
-                                placeholder="Enter address"
-                                name="user_address">
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            @endif
-        </div>
+            </tbody>
+        </table>
     </div>
-</body>
-
-</html>
+    @endif
+    <!-- <div class="col-span-4 bg-[#F5F5F5] p-8">
+                <h2 class="font-semibold text-2xl mb-4">Cart Total</h2>
+                <hr class="border-[#A3A3A3] mb-5">
+                <p class="font-medium flex justify-between items-center mb-4">
+                    <span>Subtotal</span>
+                    <span class="text-[#A3A3A3]">25.000.000đ</span>
+                </p>
+                <p class="font-medium flex justify-between items-center mb-8">
+                    <span>Total</span>
+                    <span class="font-bold text-[#EF4444] text-[20px]">25.000.000đ</span>
+                </p>
+                <a href="payment.html"
+                    class="border border-solid border-[#CA8A04] text-[#CA8A04] w-full inline-block text-center py-2 hover:bg-[#CA8A04] hover:text-white ">Checkout</a>
+            </div> -->
+</section>
+@endsection

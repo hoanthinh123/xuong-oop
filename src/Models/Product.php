@@ -139,4 +139,5 @@ class Product extends Model
             ->fetchAllAssociative();
         return [$categorie_name, $data[0]['sosp']];
     }
+    
 }

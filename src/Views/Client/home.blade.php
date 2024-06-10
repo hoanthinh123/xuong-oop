@@ -19,22 +19,25 @@ Trang chủ
   <div class="grid grid-cols-4 gap-8">
     @foreach ($getTop4 as $top4 )
     <form action="" method="post">
-    <div>
-      <div class="overflow-hidden w-full">
-      <a href="{{ url('products/' . $top4['id']) }}"><img src="{{ $top4['img_thumbnail']}}" class="hover:scale-125 duration-1000 w-full" alt="">
-      </div></a>
-      <div class="bg-[#F5F5F5] p-4 w-full">
-        <a href="{{ url('products/' . $top4['id']) }}" class="hover:text-[#CA8A04]">
-          <h3 class="font-semibold text-xl">{{ $top4['name']}}</h3>
-        </a>
-        <p class="text-[#898989] text-base mt-1 mb-2">{{ $top4['content']}}</p>
-        <p class="font-semibold text-xl text-[#EF4444] mb-3">{{ number_format($top4['price_sale'], 0, ",", ".")}}đ</p>
-        <button type="submit" class="border border-solid border-[#CA8A04] text-[#CA8A04] font-semibold w-full text-base py-2 hover:bg-yellow-700 hover:text-white ">Add
-          to cart
-        </button>
+      <div>
+        <div class="overflow-hidden w-full">
+          <a href="{{ url('products/' . $top4['id']) }}"><img src="{{ $top4['img_thumbnail']}}" class="hover:scale-125 duration-1000 w-full" alt="">
+        </div></a>
+        <div class="bg-[#F5F5F5] p-4 w-full">
+          <a href="{{ url('products/' . $top4['id']) }}" class="hover:text-[#CA8A04]">
+            <h3 class="font-semibold text-xl">{{ $top4['name']}}</h3>
+          </a>
+          <p class="text-[#898989] text-base mt-1 mb-2">{{ $top4['content']}}</p>
+          <div class="flex ">
+            <p class="font-semibold text-xl text-[#EF4444] mb-3">{{ number_format($top4['price_sale'], 0, ",", ".")}}đ </p>
+            <span class="text-[#898989] text-base mt-1 mb-2" style="text-decoration: line-through; margin-left:5px;">{{ number_format($top4['price_regular'], 0, ",", ".")}}đ</span>
+          </div>
+          <a href="{{ url('cart/add')}}??quantity=1&productID={{ $top4['id']}}"  class="border border-solid border-[#CA8A04] text-[#CA8A04] font-semibold rounded text-base hover:bg-yellow-700 hover:text-white" style="padding: 10px 89px;">Add
+            to cart
+          </a>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
 
     @endforeach
     <!-- <div>
