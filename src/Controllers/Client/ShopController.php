@@ -16,12 +16,16 @@ use Asus\XuongOop\Models\Product;
 
      }
      public function index(){
-        $CategoryAll = $this->category->all();
-        $ProductAll = $this->product->all();    
+        $CategoryAll = $this->category->all();   
         // Helper::debug($Categorys);
+        $page = $_GET['page'] ?? 1;
+        [$products,$totalPage] = $this->product->paginate($page, 6);
+        // Helper::debug($products);
         $this->renderViewClient('shop',[
             'CategoryAll' => $CategoryAll,
-            'ProductAll'=> $ProductAll
+            'ProductAll'=> $products,
+            'totalPage' => $totalPage,
+            'page' => $page
         ]);
      }
     //  public function paginate($page = 1, $perPage = 5)

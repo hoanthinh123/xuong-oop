@@ -149,11 +149,11 @@ class ProductController extends Controller
                 'content'       => $_POST['content'],
                 'updated_at'    => date('Y-m-d H:i:s'),
                 'price_regular' => $_POST['price_regular'],
-                'price_sale'    => $_POST['price_sale'],
+                'price_sale'    => !empty($_POST['price_sale'])?$_POST['price_sale']:null,
             ];
-
+            $flag = false;
             if (!empty($_FILES['img_thumbnail']) && $_FILES['img_thumbnail']['size'] > 0) {
-
+$flag = true;
                 $from = $_FILES['img_thumbnail']['tmp_name'];
                 $to   = 'assets/uploads/' . time() . $_FILES['img_thumbnail']['name'];
 
@@ -169,7 +169,7 @@ class ProductController extends Controller
 
             $this->product->update($id, $data);
 
-            if ($product['img_thumbnail'] && file_exists( PATH_ROOT . $product['img_thumbnail'] ) ) {
+            if ($flag && $product['img_thumbnail'] && file_exists( PATH_ROOT . $product['img_thumbnail'] ) ) {
                 unlink(PATH_ROOT . $product['img_thumbnail']);
             }
 

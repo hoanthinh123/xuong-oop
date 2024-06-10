@@ -10,7 +10,7 @@ Trang chủ
 <section class="container max-w-screen-xl m-auto mt-16">
   <div class="flex justify-between items-center mb-4">
     <h2 class="font-semibold text-[40px] ">Sản Phẩm Mới Nhất</h2>
-    <a href="" class="border border-solid border-[#CA8A04] py-2 px-4 font-semibold text-base text-[#CA8A04] hover:bg-yellow-700 hover:text-white">View
+    <a href="{{ url('shop') }}" class="border border-solid border-[#CA8A04] py-2 px-4 font-semibold text-base text-[#CA8A04] hover:bg-yellow-700 hover:text-white">View
       all
       products</a>
   </div>
@@ -18,22 +18,23 @@ Trang chủ
 
   <div class="grid grid-cols-4 gap-8">
     @foreach ($getTop4 as $top4 )
-    
+    <form action="" method="post">
     <div>
       <div class="overflow-hidden w-full">
-        <img src="{{ $top4['img_thumbnail']}}" class="hover:scale-125 duration-1000 w-full" alt="">
-      </div>
+      <a href="{{ url('products/' . $top4['id']) }}"><img src="{{ $top4['img_thumbnail']}}" class="hover:scale-125 duration-1000 w-full" alt="">
+      </div></a>
       <div class="bg-[#F5F5F5] p-4 w-full">
         <a href="{{ url('products/' . $top4['id']) }}" class="hover:text-[#CA8A04]">
           <h3 class="font-semibold text-xl">{{ $top4['name']}}</h3>
         </a>
         <p class="text-[#898989] text-base mt-1 mb-2">{{ $top4['content']}}</p>
         <p class="font-semibold text-xl text-[#EF4444] mb-3">{{ number_format($top4['price_sale'], 0, ",", ".")}}đ</p>
-        <button class="border border-solid border-[#CA8A04] text-[#CA8A04] font-semibold w-full text-base py-2 hover:bg-yellow-700 hover:text-white ">Add
+        <button type="submit" class="border border-solid border-[#CA8A04] text-[#CA8A04] font-semibold w-full text-base py-2 hover:bg-yellow-700 hover:text-white ">Add
           to cart
         </button>
       </div>
     </div>
+  </form>
 
     @endforeach
     <!-- <div>

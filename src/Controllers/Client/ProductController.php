@@ -18,7 +18,17 @@ class ProductController extends Controller
         $this->product = new Product();
         $this->category = new Category();
     }
-
+    public function products() {
+        $product = new Product();
+        $page = $_GET['page'] ?? 1;
+        [$products,$totalPage] = $product->paginate($page, 8);
+        // Helper::debug($products);
+        $this->renderViewClient('shop', [
+            'products' => $products,
+            'totalPage' => $totalPage,
+            'page' => $page
+        ]);
+    }
     public function index()
     {
         $products = $this->product->all();
