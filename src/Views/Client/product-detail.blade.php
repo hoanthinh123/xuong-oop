@@ -38,12 +38,10 @@ Shop
             <p class="font-medium my-4">{{ $product['content'] }}</p>
 
             <div>
-                <form action="{{ url('cart/add')}}??productID={{ $top4['id']}}" method="get">
-                    <div class="border border-solid border-neutral-400 w-fit rounded inline-block">
-                        <button class="py-2 px-4">-</button>
-                        <input type="hidden" name="productID" value="{{ $top4['id']}}" >
-                        <input type="number" min="1" value="1" class="w-[30px] text-center">
-                        <button class="px-2 px-4">+</button>
+                <form action="{{ url('cart/add')}}??productID={{ $product['id']}}" method="get">
+                    <div class=" w-fit rounded inline-block">
+                        <input type="hidden" name="productID" value="{{ $product['id']}}" >
+                        <input type="number" min="1" value="1" class="border border-solid border-yellow-600 text-yellow-600 rounded py-2 px-4 mx-4 " >
                     </div>
                     <button type="submit" class="border border-solid border-yellow-600 text-yellow-600 rounded py-2 px-10 ml-3 hover:bg-yellow-700 hover:text-white">Add
                         To Cart</button>

@@ -1,3 +1,9 @@
+@php
+if (! isset($_SESSION['user'])) {
+        header('location: ' . url('login') );
+        exit();
+    }
+@endphp
 @extends('layouts.master')
 @section('title')
 Cart
@@ -20,7 +26,7 @@ Cart
             </thead>
             <tbody>
                 @php
-                $cart = $_SESSION['cart'] ?? $_SESSION['cart-' . $_SESSION['user']['id']]
+                $cart = $_SESSION[$key];
                 @endphp
                 @foreach ($cart as $item)
                 <tr class="*:py-4 *:text-center *:font-medium">
@@ -35,7 +41,6 @@ Cart
                     <td>
                         @php
                         $url = url('cart/quantityDec') . '?productID=' . $item['id'];
-
                         if (isset($_SESSION['cart-' . $_SESSION['user']['id']])) {
                         $url .= '&cartID=' . $_SESSION['cart_id'];
                         }
@@ -46,7 +51,6 @@ Cart
 
                         @php
                         $url = url('cart/quantityInc') . '?productID=' . $item['id'];
-
                         if (isset($_SESSION['cart-' . $_SESSION['user']['id']])) {
                         $url .= '&cartID=' . $_SESSION['cart_id'];
                         }
@@ -60,7 +64,6 @@ Cart
                     <td>
                         @php
                         $url = url('cart/remove') . '?productID=' . $item['id'];
-
                         if (isset($_SESSION['cart-' . $_SESSION['user']['id']])) {
                         $url .= '&cartID=' . $_SESSION['cart_id'];
                         }
@@ -73,7 +76,42 @@ Cart
             </tbody>
         </table>
     </div>
-    @endif
+    
+     <div class="col-span-4 mb-2 mt-4 border border-solid border-[#CA8A04] p-2" type="width:500px;">
+                    <form action="{{ url('order/checkout') }}" method="POST">
+                        <h1 class="font-bold text-2xl text-[#CA8A04] text-center">Information</h1>
+                        <div class="mb-3 mt-3 " type="width:90px;" >
+                            <label for="name" class="form-label">Name:</label><br>
+                            <input type="text" class="w-full border border-solid border-[#CA8A04]" id="name" 
+                                value="{{ $_SESSION['user']['name'] ?? null }}"
+                                placeholder="Enter name"
+                                name="user_name">
+                        </div>
+                        <div class="mb-3 mt-3 " type="width:90px;" >
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="w-full  border border-solid border-[#CA8A04]" id="email" 
+                                value="{{ $_SESSION['user']['email'] ?? null }}"
+                                placeholder="Enter email"
+                                name="user_email">
+                        </div>
+                        <div class="mb-3 mt-3 " type="width:90px;" >
+                            <label for="phone" class="form-label">Phone:</label><br>
+                            <input type="text" class="w-full border border-solid border-[#CA8A04]" id="phone" 
+                                value="{{ $_SESSION['user']['phone'] ?? null }}"
+                                placeholder="Enter phone"
+                                name="user_phone">
+                        </div>
+                        <div class="mb-3 mt-3 " type="width:90px;">
+                            <label for="address" class="form-label">Address:</label><br>
+                            <input type="text" class="w-full border border-solid border-[#CA8A04]" id="address" 
+                                value="{{ $_SESSION['user']['address'] ?? null }}"
+                                placeholder="Enter address"
+                                name="user_address">
+                        </div>
+                        
+                        <button type="submit" class="border border-solid border-[#CA8A04] text-[#CA8A04] font-semibold rounded text-base hover:bg-yellow-700 hover:text-white" style="padding: 7px 167px;">Submit</button>
+                    </form>
+                </div>
     <!-- <div class="col-span-4 bg-[#F5F5F5] p-8">
                 <h2 class="font-semibold text-2xl mb-4">Cart Total</h2>
                 <hr class="border-[#A3A3A3] mb-5">
@@ -88,5 +126,6 @@ Cart
                 <a href="payment.html"
                     class="border border-solid border-[#CA8A04] text-[#CA8A04] w-full inline-block text-center py-2 hover:bg-[#CA8A04] hover:text-white ">Checkout</a>
             </div> -->
+             @endif
 </section>
 @endsection

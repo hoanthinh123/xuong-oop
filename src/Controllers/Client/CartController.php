@@ -26,7 +26,6 @@ class CartController extends Controller
     { // thêm vào giỏ hàng
         // Lấy thông tin sản phẩm theo ID
         $product = $this->product->findByID($_GET['productID']);
-
         // Khởi tạo SESSION cart
         // Check n đang đang đăng nhập hay không
         $key = 'cart';
@@ -41,7 +40,7 @@ class CartController extends Controller
 
             $_SESSION[$key][$product['id']]['quantity'] += $_GET['quantity'];
         }
-
+        
         // Nếu mà nó đăng nhập thì mình phải lưu n vào trong csdl
         if (isset($_SESSION['user'])) {
             $conn = $this->cart->getConnection();
@@ -84,8 +83,15 @@ class CartController extends Controller
     }
 
     public function detail()
+    
     { // Chi tiết giỏ hàng
-        $this->renderViewClient('cart');
+        $key = 'cart';
+        if (isset($_SESSION['user'])) {
+            $key .= '-' . $_SESSION['user']['id'];
+        }
+        $this->renderViewClient('cart',[
+            'key' => $key,
+        ]);
     }
 
     public function quantityInc()
@@ -98,8 +104,8 @@ class CartController extends Controller
             $key .= '-' . $_SESSION['user']['id'];
         }
 
-
         $_SESSION[$key][$_GET['productID']]['quantity'] += 1;
+
 
         // Thay đổi trong DB
         if (isset($_SESSION['user'])) {
