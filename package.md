@@ -18,20 +18,4 @@
     RewriteRule . index.php [L]
     ```
 
-     <?php if (isset($_SESSION['user'])) : ?>
-                                    <div class='btn-group'>
-                                        <button class='btn btn-warning btn-sm dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
-                                        </button>
-                                        <ul class='dropdown-menu'>
-                                            <li><a class='dropdown-item' href='#'>Hồ sơ</a></li>
-                                            <li><a class='dropdown-item' href='#'?>'>Giỏ hàng</a></li>
-                                            <li>
-                                                <hr class='dropdown-divider'>
-                                            </li>
-                                            <li><a class='dropdown-item' href='<?=  '?act=logout' ?>'>Đăng xuất</a></li>
-                                        </ul>
-                                    </div>
-                                <?php else : ?>
-                                    <a href='<?=  asset('logout') ?>' class='font-weight-bold'>Đăng nhập</a>
-                                    /<a href='<?=  '?act=login' ?>'>Đăng ký</a>
-                                <?php endif ?>
+
