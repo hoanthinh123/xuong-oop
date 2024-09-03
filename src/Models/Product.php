@@ -80,7 +80,6 @@ class Product extends Model
     {
         $queryBuilder = clone ($this->queryBuilder);
 
-        $totalPage = ceil($this->count() / $perPage);
 
         $offset = $perPage * ($page - 1);
 
@@ -103,7 +102,7 @@ class Product extends Model
             ->orderBy('p.id', 'desc')
             ->fetchAllAssociative();
 
-        return [$data, $totalPage];
+        return [$data, $perPage];
     }
 
     public function findByID($id)
